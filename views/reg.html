@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{title}}</title>
+  <link rel="stylesheet" href="/css/bootstrap.css">
+</head>
+<body>
+<div class="container-fluid">
+  <!--固定导航栏-->
+  <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Myblog</a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="/">首页</a></li>
+          <li><a href="/login">登录</a></li>
+          <li class="active"><a href="/reg">注册</a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+  <!--内容主体-->
+  {{if errTip}}
+  <div class='alert alert-danger' role="alert">{{errTip}}</div>
+  {{/if}}
+  {{if successTip}}
+  <div class='alert alert-success' role="alert">{{successTip}}</div>
+  {{/if}}
+  <form class="form-horizontal" role="form" method='post'>
+    <fieldset>
+      <legend><strong>{{title}}</strong></legend>
+      <div class="form-group">
+        <label for="username" class="col-sm-2 control-label">用户名</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="username" placeholder="请输入用户名" name='name'>
+          <p class="help-block">你的账户名称，用于登录和显示。</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password" class="col-sm-2 control-label">密码</label>
+        <div class="col-sm-4">
+          <input type="password" class="form-control" id="password" placeholder="请输入密码" name='password'>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password-repeat" class="col-sm-2 control-label">再次输入密码</label>
+        <div class="col-sm-4">
+          <input type="password" class="form-control" id="password-repeat" placeholder="请再次输入密码" name='password-repeat'>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-primary">注册</button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+  <!--页脚-->
+  <footer>
+    <p style='text-align: center'><a href="https://github.com/frank320" target="_blank">版权所有@Frank</a> 2016</p>
+  </footer>
+</div>
+</body>
+<script src='/js/jquery.js'></script>
+<script src='/js/bootstrap.min.js'></script>
+</html>
