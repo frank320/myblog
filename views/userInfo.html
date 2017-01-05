@@ -30,32 +30,29 @@
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>
-  <div class="jumbotron">
-    <h1>欢迎来到 Myblog</h1>
-    <p>Myblog 是一个基于 Node.js 的微博系统</p>
-    <p>
-      <a class="btn btn-primary btn-lg" href="/login" role="button">登录</a>
-      <a class="btn btn-primary btn-lg" href="/reg" role="button">立即注册</a>
-    </p>
+
+  <div class="container-fluid" style='text-align: center'>
+    <h2><strong>{{currentUser}}</strong>的微博</h2>
   </div>
+
   <!--微博内容展示-->
   <div class="container-fluid">
     {{each posts as post index}}
-      {{if index%3==0}}
-      <div class='row'>
-      {{/if}}
-       <div class='col-xs-4'>
-        <h2><a href="/u/{{post.user}}">{{post.user}}:</a>说</h2>
-        <p style='word-wrap: break-word;word-break: break-all;font-size: 20px;font-weight: 600'>{{post.post}}</p>
-        <p><small>发布时间：{{post.time}}</small></p>
-       </div>
-      {{if index%3==2}}
-      </div>
-      {{/if}}
+        {{if index%3==0}}
+          <div class='row'>
+        {{/if}}
+          <div class='col-xs-4'>
+            <h2><a href="/u/{{post.user}}">{{post.user}}</a>说:</h2>
+            <p style='word-wrap: break-word;word-break: break-all;font-size: 20px;font-weight: 600''>{{post.post}}</p>
+            <p><small>发布时间：{{post.time}}</small></p>
+          </div>
+        {{if index%3==2}}
+           </div>
+        {{/if}}
     {{/each}}
-     {{if posts.length%3!=0}}
+    {{if posts.length%3!=0}}
      </div>
-     {{/if}}
+    {{/if}}
   </div>
   <footer>
     <p style='text-align: center'><a href="https://github.com/frank320" target="_blank">版权所有@Frank</a> 2016</p>

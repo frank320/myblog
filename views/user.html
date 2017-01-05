@@ -32,12 +32,31 @@
 
   <form method="post" action="/post" class="well form-inline center" style="text-align:
 center;">
-    <input type="test" class="span8" name="post">
+    <input type="text" name='post' class="form-control" placeholder="输入自己想说的话">
     <button type="submit" class="btn btn-success"><i class="icon-comment icon-white">
     </i> 发表微博
     </button>
   </form>
 
+  <!--微博内容展示-->
+  <div class="container-fluid">
+    {{each posts as post index}}
+        {{if index%3==0}}
+          <div class='row'>
+        {{/if}}
+          <div class='col-xs-4'>
+            <h2><a href="/u/{{post.user}}">{{post.user}}</a>说:</h2>
+            <p style='word-wrap: break-word;word-break: break-all;font-size: 20px;font-weight: 600''>{{post.post}}</p>
+            <p><small>发布时间：{{post.time}}</small></p>
+          </div>
+        {{if index%3==2}}
+           </div>
+        {{/if}}
+    {{/each}}
+    {{if posts.length%3!=0}}
+     </div>
+    {{/if}}
+  </div>
   <footer>
     <p style='text-align: center'><a href="https://github.com/frank320" target="_blank">版权所有@Frank</a> 2016</p>
   </footer>

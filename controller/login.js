@@ -24,7 +24,7 @@ router.post('/login', (req, res)=> {
   const password = md5.update(req.body.password).digest('base64')
 
   //检测用户名是否存在
-  User.get(req.body.name).then(user=> {
+  return User.get(req.body.name).then(user=> {
       if (!user) {
         data.errTip = '用户不存在'
         return res.render('login', data)
@@ -39,7 +39,7 @@ router.post('/login', (req, res)=> {
         }
         //登录成功
         req.session.user = user
-        res.redirect('/')
+        return res.redirect('/u/' + req.body.name)
       }
     }
   )

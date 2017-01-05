@@ -29,25 +29,28 @@ router.post('/reg', (req, res)=> {
   })
 
   //检测用户名是否存在
-  User.get(req.body.name).then(user=> {
-      if (user) {
-        data.errTip = '用户名已经存在'
-        return res.render('reg', data)
-      } else {
-        //新增用户
-        newUser.save()
-          .then(()=> {
-            //向会话对象写入新用户
-            req.session.user = newUser
-            return res.redirect('/')
-          })
-          .catch(()=> {
-            data.errTip = '注册失败 请重新注册'
-            return res.render('reg', data)
-          })
+  return User
+    .get(req.body.name)
+    .then(user=> {
+        if (user) {
+          data.errTip = '用户名已经存在'
+          return res.render('reg', data)
+        } else {
+          //新增用户
+          newUser
+            .save()
+            .then(()=> {
+              //向会话对象写入新用户
+              req.session.user = newUser
+              return res.redirect('/u/' + req.body.name)
+            })
+            .catch(()=> {
+              data.errTip = '注册失败 请重新注册'
+              return res.render('reg', data)
+            })
+        }
       }
-    }
-  )
+    )
 })
 
 module.exports = router

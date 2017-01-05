@@ -3,29 +3,31 @@
  * 微博内容数据模型
  */
 const mongodb = require('./db')
+const moment = require('moment')
 class Post {
-  constructor({name,password}) {
-    this.name = name
-    this.password = password
+  constructor(user, post, time = +new Date()) {
+    this.user = user
+    this.post = post
+    this.time = time
   }
 
   save() {
     return new Promise((resolve, reject)=> {
       mongodb.open((err, db)=> {
         if (err) return reject(err)
-        db.collection('users', (err, collection)=> {
+        db.collection('posts', (err, collection)=> {
           if (err) {
             mongodb.close()
             return reject(err)
           }
-          const user = {
-            name: this.name,
-            password: this.password
+          const post = {
+            post: this.post,
+            user: this.user,
+            time: this.time
           }
-          //为name属性添加索引
-          collection.ensureIndex('name', {unique: true})
-          //写入user文档
-          collection.insert(user, {safe: true}, (err, user)=> {
+          //写入文档
+          collection.dropIndexes() //移除当前索引
+          collection.insertOne(post, {safe: true}, (err, post)=> {
             mongodb.close()
             if (err) return reject(err)
             return resolve('save ok')
@@ -36,26 +38,27 @@ class Post {
     })
   }
 
-  static get(username) {
+  static get(userName) {
     return new Promise((resolve, reject)=> {
       mongodb.open((err, db)=> {
         if (err) return reject(err)
-        db.collection('users', (err, collection)=> {
+        db.collection('posts', (err, collection)=> {
           if (err) {
             mongodb.close()
             return reject(err)
           }
+          let query = !userName ? {} : {user: userName}
           //查找文档
-          collection.findOne({name: username}, (err, doc)=> {
+          collection.find(query).sort({time: -1}).toArray((err, docs)=> {
             mongodb.close()
             if (err) return reject(err)
-            if (doc) {
-              //封装为User对象 并返回
-              return resolve(new User(doc))
-            } else {
-              //不存在返回0
-              return resolve(0)
-            }
+            //处理并存储微博数据
+            let posts = []
+            docs.forEach(item=> {
+              const post = new Post(item.user, item.post, moment(item.time).format('YYYY-MM-DD HH:mm:ss'))
+              posts.push(post)
+            })
+            return resolve(posts)
           })
         })
       })
