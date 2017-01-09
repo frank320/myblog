@@ -1,7 +1,6 @@
 
 ## 项目介绍
   - 个人博客社交网站,主要功能包括用户注册、登录、微博发布
-
 ## 主要技术栈
   - nodejs 6.x
   - express 4.x
@@ -11,5 +10,7 @@
   - mongodb
   
 ## 启动 
-  - npm install 安装依赖
+  - 安装node环境(6.x)及最新mongodb
+  - 本地启动mongodb服务
+  - npm install 安装依赖
   - npm run start 
