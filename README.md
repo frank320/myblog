@@ -12,7 +12,7 @@
   - mongodb
   
 ## 启动 
-  - 安装node环境(6.x)及最新mongodb
-  - 本地启动mongodb服务
-  - npm install 安装依赖
-  - npm run start 
+  -  安装node环境(6.x)及最新mongodb
+  -  本地启动mongodb服务
+  -  npm install 安装依赖
+  -  pm run start 
